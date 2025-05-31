@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class NewUsersChart extends ChartWidget
 {
-    protected static ?string $heading = 'New Users';
+    protected static ?string $heading = ' Last 6 MonthsNew Users';
 
     protected function getData(): array
     {
