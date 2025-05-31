@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+		"name": "Laravel API Routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_collection_link": "https://www.postman.com/collections/a1b2c3d4-e5f6-7890-1234-567890abcdef"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"accessToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Test User\",\n    \"email\": \"updated_test@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get All Posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Single Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"My First Post\",\n    \"content\": \"This is the content of my first post.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Post Title\",\n    \"content\": \"This is the updated content for the post.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Filter Posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/filter?status=published&category=news",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "published"
+								},
+								{
+									"key": "category",
+									"value": "news"
+								}
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Platforms",
+			"item": [
+				{
+					"name": "Get All Platforms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/platforms",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Single Platform",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/platforms/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Platform",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New Gaming Platform\",\n    \"description\": \"A description of the new gaming platform.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/platforms",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Platform",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Gaming Platform\",\n    \"description\": \"An updated description.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/platforms/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Platform",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/platforms/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms",
+								"1"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				},
+				{
+					"name": "Toggle Platform Active",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/platforms/1/toggle",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"platforms",
+								"1",
+								"toggle"
+							]
+						}
+					},
+					"response": [],
+					"prerequest": {
+						"script": {
+							"type": "text/javascript",
+							"exec": [
+								"pm.request.headers.add({ key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken') });"
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}
