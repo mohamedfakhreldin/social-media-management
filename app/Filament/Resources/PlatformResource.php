@@ -25,9 +25,10 @@ class PlatformResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('char_limit')
+                    Forms\Components\TextInput::make('char_limit')
+                    ->numeric() // or
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(60000),
 
                 Forms\Components\Select::make('type')
                     ->options([
@@ -91,4 +92,5 @@ class PlatformResource extends Resource
             'edit' => Pages\EditPlatform::route('/{record}/edit'),
         ];
     }
+    
 } 

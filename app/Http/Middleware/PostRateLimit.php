@@ -20,7 +20,7 @@ class PostRateLimit
                 ->count();
     
 
-            if ($todayPosts >= 7) {
+            if ($todayPosts >= 10) {
                 return response()->json([
                     'message' => 'You have reached the daily limit of 10 scheduled posts.'
                 ], 429);
