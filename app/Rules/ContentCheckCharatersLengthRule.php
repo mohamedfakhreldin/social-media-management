@@ -9,9 +9,12 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class ContentCheckCharatersLengthRule implements ValidationRule
 {
     protected array $platformIds =[];
-    public function __construct(array $platformIds)
+    public function __construct(array|null $platformIds)
     {
-        $this->platformIds = $platformIds;
+        if($platformIds){
+
+            $this->platformIds = $platformIds;
+        }
     }
     /**
      * Run the validation rule.
@@ -20,7 +23,7 @@ class ContentCheckCharatersLengthRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        
+       $platform = null; 
 $count=strlen($value);
 if(count( $this->platformIds )>0){
 

@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Platform;
 use Laravel\Sanctum\Sanctum;
+use App\Models\UserActivePlatform;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostTest extends TestCase
@@ -34,6 +35,13 @@ class PostTest extends TestCase
             'status' => 'scheduled',
             'platforms' => $this->platforms->pluck('id')->toArray(),
         ];
+        foreach ($this->platforms as $platform) {
+            $userPlatform = UserActivePlatform::updateOrCreate(
+                [
+                    'user_id' => $this->user->id,
+                    'platform_id' => $platform->id,
+                ]);
+        }
 
         $response = $this->actingAs($this->user)
             ->postJson('/api/posts', $postData);
