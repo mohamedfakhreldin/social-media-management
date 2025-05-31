@@ -26,7 +26,7 @@ A Laravel-based social media management system that allows users to create, sche
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/social-media-management.git
+git clone https://github.com/mohamedfakhreldin/social-media-management.git
 cd social-media-management
 ```
 
